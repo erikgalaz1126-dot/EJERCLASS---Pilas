@@ -1,28 +1,68 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 class Pila:
-    """ Representa una pila con operaciones de apilar, desapilar y
-        verificar si está vacía. """
-
     def __init__(self):
-        """ Crea una pila vacía. """
-        # La pila vacía se representa con una lista vacía
-        self.items=[]
+        self.items = []
 
     def apilar(self, x):
-        """ Agrega el elemento x a la pila. """
-        # Apilar es agregar al final de la lista.
         self.items.append(x)
 
     def desapilar(self):
-        """ Devuelve el elemento tope y lo elimina de la pila.
-            Si la pila está vacía levanta una excepción. """
         try:
             return self.items.pop()
         except IndexError:
             raise ValueError("La pila está vacía")
 
     def es_vacia(self):
-        """ Devuelve True si la lista está vacía, False si no. """
         return self.items == []
+
+    def ver_pila(self):
+        if self.es_vacia():
+            print("La pila está vacía.")
+        else:
+            print("Contenido de la pila (de abajo hacia arriba):")
+            for elem in self.items:
+                print(f" - {elem}")
+
+def menu():
+    pila = Pila()
+    while True:
+        print("\n===== MENÚ DE PILA =====")
+        print("1. Apilar (agregar un elemento)")
+        print("2. Desapilar (quitar el último elemento)")
+        print("3. Ver si la pila está vacía")
+        print("4. Mostrar la pila")
+        print("5. Salir")
+
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            dato = input("Ingresa el elemento a apilar: ")
+            pila.apilar(dato)
+            print(f"Elemento '{dato}' agregado a la pila.")
+
+        elif opcion == "2":
+            try:
+                elem = pila.desapilar()
+                print(f"Se desapiló el elemento: {elem}")
+            except ValueError as e:
+                print(e)
+
+        elif opcion == "3":
+            if pila.es_vacia():
+                print("La pila está vacía.")
+            else:
+                print("La pila NO está vacía.")
+
+        elif opcion == "4":
+            pila.ver_pila()
+
+        elif opcion == "5":
+            print("¡Saliendo del programa!")
+            break
+
+        else:
+            print("Opción no válida, intenta de nuevo.")
+
+
+if __name__ == "__main__":
+    menu()
+
